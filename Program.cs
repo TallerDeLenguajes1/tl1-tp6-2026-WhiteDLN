@@ -105,9 +105,170 @@ double parteEntera = Math.Truncate(numeroFloat);
 Console.WriteLine("La parte entera de: " + numeroFloat + "es: " + parteEntera);
 
 
+Console.WriteLine("Ingrese una cadena de texto.");
+string Caneda1 = Console.ReadLine();
+
+Console.WriteLine($"Longitud de la cadena: {Caneda1.Length}.");
 
 
+Console.WriteLine("Ingrese una segunda cadena de texto.");
+string Cadena2 = Console.ReadLine();
+string Concatenada = Caneda1 + " " + Cadena2;
+Console.WriteLine(Concatenada);
 
+Console.WriteLine("CALCULADORA CON RESULTADO EN TEXTO");
+
+int numCalc1 = PedirNumero("Ingrese el primer numero: ");
+int numCalc2 = PedirNumero("Ingrese el segundo numero: ");
+
+Console.WriteLine("Seleccione la operacion:");
+Console.WriteLine("[1] Sumar");
+Console.WriteLine("[2] Restar");
+Console.WriteLine("[3] Multiplicar");
+Console.WriteLine("[4] Dividir");
+int opcionCalc = int.Parse(Console.ReadLine());
+
+int resultadoCalc = 0;
+string nombreOp = "";
+
+switch (opcionCalc)
+{
+    case 1:
+        resultadoCalc = numCalc1 + numCalc2;
+        nombreOp = "suma";
+        break;
+    case 2:
+        resultadoCalc = numCalc1 - numCalc2;
+        nombreOp = "resta";
+        break;
+    case 3:
+        resultadoCalc = numCalc1 * numCalc2;
+        nombreOp = "multiplicacion";
+        break;
+    case 4:
+        if (numCalc2 != 0)
+        {
+            resultadoCalc = numCalc1 / numCalc2;
+            nombreOp = "division";
+        }
+        else
+        {
+            Console.WriteLine("Error: No se puede dividir por cero.");
+            nombreOp = "division (error)";
+        }
+        break;
+    default:
+        Console.WriteLine("Opción inválida.");
+        break;
+}
+
+if (opcionCalc >= 1 && opcionCalc <= 4 && !(opcionCalc == 4 && numCalc2 == 0))
+{
+    Console.WriteLine($"La {nombreOp} de {numCalc1.ToString()} y de {numCalc2.ToString()} es igual a: {resultadoCalc.ToString()}");
+}
+
+Console.WriteLine("Elementos de la cadena:");
+foreach(char c in Caneda1){
+    Console.WriteLine($"{c}");
+}
+
+
+Console.Write("Ingrese la palabra a buscar: ");
+string palabraBuscar = Console.ReadLine();
+
+if (Cadena1.Contains(palabraBuscar))
+{
+    int posicion = Cadena1.IndexOf(palabraBuscar);
+    Console.WriteLine($"La palabra '{palabraBuscar}' se encuentra en la posición {posicion}");
+}
+else
+{
+    Console.WriteLine($"La palabra '{palabraBuscar}' NO se encuentra en la cadena");
+}
+
+
+console.WriteLine($"Mayusculas:  {Caneda1.ToUpper()}");
+Console.WriteLine($"Minusculas: {Cadena1.ToLower()}");
+
+Console.Write("Ingrese una cadena separada por comas (ej: perro,gato,pez): ");
+string cadenaSeparada = Console.ReadLine();
+string[] elementos = cadenaSeparada.Split(',');
+
+Console.WriteLine("Elementos separados:");
+foreach (string elemento in elementos)
+{
+    Console.WriteLine($"  - {elemento.Trim()}");
+}
+
+Console.Write("Ingrese una ecuación simple (ej: 582+2): ");
+string ecuacion = Console.ReadLine();
+
+ResolverEcuacion(ecuacion);
+
+static void ResolverEcuacion(string ecuacion)
+{
+    char operador = ' ';
+    string[] partes = null;
+
+    if (ecuacion.Contains('+')) {
+        operador = '+'; 
+        partes = ecuacion.Split('+'); 
+        }
+    else if (ecuacion.Contains('-')) {
+         operador = '-'; 
+         partes = ecuacion.Split('-'); 
+         }
+    else if (ecuacion.Contains('*')) {
+         operador = '*'; 
+         partes = ecuacion.Split('*'); 
+         }
+    else if (ecuacion.Contains('/')) {
+         operador = '/'; 
+         partes = ecuacion.Split('/'); 
+         }
+    else
+    {
+        Console.WriteLine("Ecuación inválida. Use +, -, * o /");
+        return;
+    }
+
+    if (partes.Length != 2)
+    {
+        Console.WriteLine("Ecuación inválida. Debe tener dos números");
+        return;
+    }
+
+    if (double.TryParse(partes[0], out double num1) && double.TryParse(partes[1], out double num2))
+    {
+        double resultado = 0;
+        string nombreOp = "";
+
+        switch (operador)
+        {
+            case '+': resultado = num1 + num2; nombreOp = "suma"; break;
+            case '-': resultado = num1 - num2; nombreOp = "resta"; break;
+            case '*': resultado = num1 * num2; nombreOp = "multiplicación"; break;
+            case '/':
+                if (num2 != 0)
+                {
+                    resultado = num1 / num2;
+                    nombreOp = "división";
+                }
+                else
+                {
+                    Console.WriteLine("Error: No se puede dividir por cero.");
+                    return;
+                }
+                break;
+        }
+
+        Console.WriteLine($"La {nombreOp} de {num1} y {num2} es igual a: {resultado}");
+    }
+    else
+    {
+        Console.WriteLine("Error: Asegúrese de ingresar números validos");
+    }
+}
 
 static int PedirNumero(string Mensaje){
     int Numero;
